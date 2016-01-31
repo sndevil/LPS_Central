@@ -165,9 +165,6 @@ int main(void)
 							if (nextindex != -1)
 							{
 								searchindex = nextindex;
-								//serial.putChar('X');
-								//serial.putChar(searchindex);
-								//serial.putChar(searchingarray[searchindex]);
 								madeGetStatusCommandBaseOnMACAddress(searchingarray[searchindex]);
 							}
 							else
