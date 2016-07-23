@@ -13,14 +13,15 @@
 //#define    INT_Lock   PORTD.5
 
 #define    TR_SW_WR(x)			(PORTD = (PORTD & ~_BV(PD7)) | ((x) << PD7))			//PORTD.7
-#define    PA_ENABLE_WR(x)		(PORTB = (PORTB & ~_BV(PB3)) | ((x) << PB3))			//PORTB.3
-
 
 #define    S_clk_WR(x)			(PORTC = (PORTC & ~_BV(PC0)) | ((x) << PC0))			//PORTC.0
 #define    S_Read()				((PINC & _BV(PC1)) >> PC1)								//PORTC.1
 #define    S_Data_WR(x)			(PORTC = (PORTC & ~_BV(PC2)) | ((x) << PC2))			//PORTC.2
 #define    Sl_En_WR(x)			(PORTC = (PORTC & ~_BV(PC3)) | ((x) << PC3))			//PORTC.3
 #define    CE_WR(x)				(PORTC = (PORTC & ~_BV(PC4)) | ((x) << PC4))			//PORTC.4
+#define    TR_SWV2_WR(x)		(PORTC = (PORTC & ~_BV(PC5)) | ((x) << PC5))			//PORTC.5
+#define    TR_SWV1_WR(x)		(PORTC = (PORTC & ~_BV(PC6)) | ((x) << PC6))			//PORTC.6
+#define    PA_ENABLE_WR(x)		(PORTB = (PORTC & ~_BV(PC7)) | ((x) << PC7))			//PORTC.4
 
 
 #define    Led0_RD(x)			((PINA & _BV(PA1)) >> PA1)				//PORTA.1

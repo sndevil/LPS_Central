@@ -60,7 +60,6 @@ int main(void)
 
 	_delay_ms(100);
 	setLED(0);
-	
 	setGlobalIntrrupt();
 	
 	baseStationNumber =0;
@@ -96,12 +95,10 @@ int main(void)
 	//}
 	 minimumSearchBaseStationIndex =-1; 
 	 maximumSearchBaseStationIndex =-1;
-	 automaticSearchModeFlag = 0;
-	 
+	 automaticSearchModeFlag = 0;	 
 	while (1)
 	{
-		
-		
+
 		processSerialReceivedBytes();
 		
 		if ((serialTxDataBuffer.getFifoFullLength() > 0 ) )
@@ -165,6 +162,9 @@ int main(void)
 							if (nextindex != -1)
 							{
 								searchindex = nextindex;
+								//serial.putChar('X');
+								//serial.putChar(searchindex);
+								//serial.putChar(searchingarray[searchindex]);
 								madeGetStatusCommandBaseOnMACAddress(searchingarray[searchindex]);
 							}
 							else
@@ -234,7 +234,7 @@ int main(void)
 
 		}
 		
-	};
+	}
 }
 
 	//***********************************************************************

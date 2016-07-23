@@ -21,7 +21,7 @@ Transceiver transceiver;
 FIFO serialTxDataBuffer,serialRxDataBuffer;
 StationInfo stationInfo;
 
-char intrruptFlag, commandRecievedFlag, automaticSearchModeFlag ,minimumSearchBaseStationIndex =-1, maximumSearchBaseStationIndex=-1;
+char intrruptFlag, commandRecievedFlag, automaticSearchModeFlag ,minimumSearchBaseStationIndex , maximumSearchBaseStationIndex;
 
 uint16_t timeoutCounter;
 uint16_t searchingarray[32];

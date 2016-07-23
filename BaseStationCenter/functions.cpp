@@ -627,9 +627,12 @@ void processSerialReceivedBytes()
 			{
 				minimumSearchBaseStationIndex = receivedData[5];
 				maximumSearchBaseStationIndex = receivedData[6];
+				int diff = maximumSearchBaseStationIndex - minimumSearchBaseStationIndex;
 				char mode = receivedData[7];
 				char delay = receivedData[8];
 				decodedelay(delay);
+				//searchdelaymax = decodedelay(delay);
+				
 				searchindex=-1;
 				
 				if (mode == 'R')
@@ -637,15 +640,12 @@ void processSerialReceivedBytes()
 					ResetSearchArray();
 					searchpointer = 0;
 				}
-				for (int i = minimumSearchBaseStationIndex; i <= maximumSearchBaseStationIndex; i++)
+				for (int i = searchpointer; i <= searchpointer + diff;i++)
 				{
-					searchingarray[searchpointer] = i;
-					//serial.putChar('X');
-					//serial.putChar(searchpointer);
-					//serial.putChar(searchingarray[searchpointer]);
-					searchpointer++;
+					//DEBUGMESSAGE("this too. i: %d",i);
+					searchingarray[i] = minimumSearchBaseStationIndex + i - searchpointer;
 				}
-				
+				searchpointer += diff+1;
 				commandRecievedFlag =1;
 				automaticSearchModeFlag = 1;
 				counter = -1 ;
@@ -655,7 +655,6 @@ void processSerialReceivedBytes()
 			case AOUTOMATIC_SEARCH_DISABLE_CMD:
 			if (counter > aoutomaticSearchDisableCommandCount + 4)
 			{
-				serial.putChar('R');
 				minimumSearchBaseStationIndex = -1;
 				maximumSearchBaseStationIndex = -1;
 				searchindex = -1;
@@ -798,13 +797,23 @@ void decodedelay(char input)
 	else if (input < 138) // sec
 	{
 		uint32_t temp = ((uint32_t)(input-18)) * 20000;
+		//uint16_t H = temp /65536;
 		searchdelaymaxH = temp / 65536;
 		searchdelaymaxL = temp % 65536;			
 	}
 	else if (input < 227) // minute
 	{
+		//if (input <197)
+		//{
 			searchdelaymaxH = ((uint32_t)(input - 137) * 1200000) /65536;
 			searchdelaymaxL = ((uint16_t)(input - 137) * 1200000);		
+		/*}
+		else
+		{
+			searchdelayhourmax = 0;
+			searchdelaymax = 14400;
+			searchdelaycounter = (input - 197) * 240;
+		}*/
 	}
 	else // hour
 	{
@@ -817,4 +826,9 @@ void decodedelay(char input)
 		searchdelaymaxL = ((uint32_t)(72000000 * hour)) % 65536;
 		
 	}
+	serial.putChar('X');
+	serial.put16Bit(searchdelaymaxH);
+	serial.put16Bit(searchdelaymaxL);
+			//serial.put16Bit(searchdelaymax/65536);
+			//serial.put16Bit(searchdelaymax & 0xFFFF);
 }

@@ -76,6 +76,11 @@ void ADF7020::adf7020_Initialize()
 		DDRD=0x82; //0x3A
 		PA_ENABLE_WR(0);
 		_delay_ms(1);
+		//RF3023 Setting: RX: V1=1,V2=0 ---- Tx V1=0,V2=1;
+		TR_SWV1_WR(1);
+		TR_SWV2_WR(0);
+		
+		//HMC646 Setting: 1 = Tx Enable
 		TR_SW_WR(0);
 		
 		
@@ -89,8 +94,14 @@ void ADF7020::adf7020_Initialize()
 		//set data and clock port as output.
 		DDRD=0xBA;
 		
+		//RF3023 Setting: RX: V1=1,V2=0 ---- Tx V1=0,V2=1;
+		TR_SWV1_WR(0);
+		TR_SWV2_WR(1);
+		
+		//HMC646 Setting: 1 = Tx Enable
 		TR_SW_WR(1);
-		_delay_ms(1);
+
+		_delay_us(1);
 		PA_ENABLE_WR(1);
 		
 		ADF_Regs.R0_N.bit1.Fractional_N_DivideRatio =16500;//16500;//4096;//22938;
@@ -607,6 +618,11 @@ void ADF7020::adf7020_ChangeMode( TranceiverMode mode )
 		DDRD=0x82; //0x3A
 		PA_ENABLE_WR(0);
 		_delay_ms(1);
+		//RF3023 Setting: RX: V1=1,V2=0 ---- Tx V1=0,V2=1;
+		TR_SWV1_WR(1);
+		TR_SWV2_WR(0);
+		
+		//HMC646 Setting: 1 = Tx Enable
 		TR_SW_WR(0);
 		
 		
@@ -620,8 +636,13 @@ void ADF7020::adf7020_ChangeMode( TranceiverMode mode )
 		//set data and clock port as aoutput.
 		DDRD=0xBA;
 		
+		//RF3023 Setting: RX: V1=1,V2=0 ---- Tx V1=0,V2=1;
+		TR_SWV1_WR(0);
+		TR_SWV2_WR(1);
+		
+		//HMC646 Setting: 1 = Tx Enable
 		TR_SW_WR(1);
-		_delay_ms(1);
+		_delay_us(50);
 		PA_ENABLE_WR(1);
 		
 		ADF_Regs.R0_N.bit1.Fractional_N_DivideRatio =16500;//16500;//4096;//22938;
